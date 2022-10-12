@@ -1,0 +1,10 @@
+# Description of Datasets
+
+### Race_and_Income 
+The Race_and_Income datasets contain information about both racial composition and median household income for 2020 at the county, census tract, and block group level.
+
+These datasets were made by combining sections of two tables from the IPUMS National Historical Geographic Information System (IPUMS NHGIS, University of Minnesota, www.nhgis.org).  We make use of Table B03002 and Table B19013.  Both use data from the 2020 American Community Survey available at the county, census tract, and block group level.
+
+Table B03002 displays estimates of population demographics categorized via Hispanic or Latino origin by race (example categories include Not Hispanic or Latino: White alone, Not Hispanic or Latino: Two or more races, Hispanic or Latino: White alone, etc.).
+
+Table B19013 displays median household income in the past 12 months (relative to the 2020 survey period) in 2020 inflation-adjusted dollars.
