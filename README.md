@@ -7,8 +7,9 @@ Risk and effects of flooding in the US
 Risk of flooding puts communities in danger of numerous short- and long-term consequences.  Entire communities can be uprooted as their homes are destroyed.  Flooding can cause fatalities, property damage, and disease by carrying sewage and toxic runoff, polluting drinking water supplies, and leaving bacteria and mold that contribute to respiratory illnesses in their wake.  Flood risks are expected to continue to increase as global climate change contributes to heavier precipitation, more frequent hurricanes, and higher sea levels.
 
 ## Potential Research Questions:
-Where within the US are floods most severe, and what demographics (race, income) are most affected?
-Of the highest-risk zones/populations, which are best prepared to deal with floods (via access to flood insurance, investment in infrastructure, etc.)?
+- Where within the US are floods most severe, and what demographics (race, income) are most affected?
+
+- Of the highest-risk zones/populations, which are best prepared to deal with floods (via access to flood insurance, investment in infrastructure, etc.)?
 
 ## Description of Datasets
 
