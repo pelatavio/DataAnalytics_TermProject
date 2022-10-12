@@ -1,5 +1,7 @@
 # DataAnalytics_TermProject
 
+Team members: Samantha J. Poteet and Tavio A. Pela
+
 ## Topic:
 Risk and effects of flooding in the US
 
