@@ -127,4 +127,13 @@ Race_and_Income_blockgrp |>
 
 ## So we're missing 927 out of 13388, or about 6.92%, of the blockgroups
 
+# Isolate tract-level Florida Data and save ------------------------------------------------
+
+Florida_Race_and_Income_tract = Race_and_Income_tract = read_csv("Race_and_Income_tract") |>
+  select(GISJOIN:median_household_income) |>
+  filter(STATE=="Florida")
+
+write_csv(Florida_Race_and_Income_tract, "Florida_Race_and_Income_tract")
+
+
 
