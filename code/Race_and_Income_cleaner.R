@@ -133,7 +133,7 @@ Florida_Race_and_Income_tract = Race_and_Income_tract = read_csv("Race_and_Incom
   select(GISJOIN:median_household_income) |>
   filter(STATE=="Florida")
 
-write_csv(Florida_Race_and_Income_tract, "Florida_Race_and_Income_tract")
+write_csv(Florida_Race_and_Income_tract, "Florida_Race_and_Income_tract.csv")
 
 
 
