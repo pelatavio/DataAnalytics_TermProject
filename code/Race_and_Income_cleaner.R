@@ -129,7 +129,7 @@ Race_and_Income_blockgrp |>
 
 # Isolate tract-level Florida Data and save ------------------------------------------------
 
-Florida_Race_and_Income_tract = Race_and_Income_tract = read_csv("Race_and_Income_tract") |>
+Florida_Race_and_Income_tract = Race_and_Income_tract = read_csv("Race_and_Income_tract.csv") |>
   select(GISJOIN:median_household_income) |>
   filter(STATE=="Florida")
 
