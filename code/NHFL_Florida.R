@@ -59,18 +59,29 @@ broward_hazzard1 <- broward_hazzard%>%
 broward_pop_geo <- left_join(broward_pop1, broward_geo1, by = "TRACTA")
 broward_pop_geo <-st_as_sf(broward_pop_geo)
 
-# spatial join with population and the hazzard layer
-broward_pop_hazzard_join <- st_join(broward_hazzard, broward_pop_geo)
-
-# intersects with population and the hazzard layer
-broward_pop_hazzard_intersects <- st_intersects(broward_hazzard, broward_pop_geo)
-broward_pop_hazzard_intersects1 <- st_intersects(broward_pop_geo, broward_hazzard) #OUTPUT LIST OF 1 :(
-
-# current issue with st_join and st_intersects is the y dataset comes up as NA
-
 # intersections
-broward_pop_hazzard_intersection <- st_intersection(broward_hazzard, broward_pop_geo) # ouput 0 obs :(
+broward_pop_hazzard_intersection <- st_intersection(broward_pop_geo, broward_hazzard1) # ouput 0 obs :(
 
+# reproject in to crs that preserves area
+broward_pop_hazzard_intersection1 <- st_transform(broward_pop_hazzard_intersection, 2163)
+
+# calculate area
+broward_pop_hazzard_intersection2 <- broward_pop_hazzard_intersection1 %>%
+  cbind(area = units::set_units(st_area(broward_pop_hazzard_intersection1), km^2))
+
+st_write(broward_pop_hazzard_intersection2, "data_temp/pop_hazzard_intersection_area.shp")
+
+# create final data frame were each tract is repeated as many hazzard zones *types*  there are in the tract.
+# there should not be more than 2,912 obsrvations. there are 7 different FLD_ZONE values and 416*7 = 2,912
+# likely this will be less than 2912 bc I don't think every tract has each type of zone. 
+# I have calculated each area and we want the sum of the area of each zone type for each tract
+# becareful to not sum the tract population data but to make sure it stays the same as the original dataset.
+broward_pop_hazzard_intersection3 <- broward_pop_hazzard_intersection2 %>%
+  group_by(FLD_ZONE, TRACTA) %>%
+  summarise(area = sum(area))
+  
+
+#intersection -> transform into area/or no projections? -> calculate area -> group_by fld_zone summarise sum(area)
 
 #### MAPPING ####--------------------------------------------------------------------------------
 
