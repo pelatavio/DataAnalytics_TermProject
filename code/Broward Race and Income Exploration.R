@@ -246,5 +246,5 @@ broward_ethnic_map = tm_shape(jbt_demographics2_black) + tm_polygons("percent_bl
 
 tmap_save(income_map, "output/maps/broward_median_income.png")
 tmap_save(broward_ethnic_map, "output/maps/broward_ethnic_map.png")
-ggsave(plot = broward_ethnic_composition, filename = "output/maps/broward_ethnic_composition.pdf")
+ggsave(plot = broward_ethnic_composition, filename = "output/charts/broward_ethnic_composition.pdf")
 
