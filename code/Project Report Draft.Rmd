@@ -48,57 +48,57 @@ The NFHL observations contain identifying codes that can be used to merge it wit
 
 ## Data Processing
 
-INSTRUCTIONS:
+
+### Overview
+
+In our project, we develop a methodology for using the Race/Income and NHFL data that should allow for tract-level analysis of any county in the US for which the data is not missing. Running our analysis across the whole of the US (or even the whole of one state at once) is possible in theory, but the computational time required to produce our results/visuals is too large given the volume of data required, so we choose narrow our focus to Broward County, FL as a test case.
+
+*[[WHY FL???  WHY SPECIFICALLY BROWARD COUNTY, FL????]]* ------------------------------
+{{here are some of my thoughts, but pls add to it and put 'em in a coherent format}}
+ - FL b/c coastal so flooding is a very real possibility there
+ - Broward b/c most diverse county in FL; if we want to analyze impacts across demographics, need place with sufficient demographic diversity to observe differences ----------------------------------------
+
+### Race/Income Data
+
+Our tract-level data on racial demographics includes many different categories, which we simplify for the purposes of our analysis. In our analysis, we use "White" to refer to those reported as "Not Hispanic or Latino: White alone", "Black" to refer to those reported as "Not Hispanic or Latino: Black or African American alone", "Native" to refer to those reported as "Not Hispanic or Latino: American Indian and Alaska Native alone", "Asian" to refer to those reported as "Not Hispanic or Latino: Asian alone", "Hispanic" to refer to those reported as "Hispanic or Latino", and "Other" to refer to those in all other Not Hispanic or Latino categories (e.g., "Not Hispanic or Latino: Some other race alone", "Not Hispanic or Latino: Two or more races", etc.).
+
+While this is an oversimplification of race and ethnicity in the United States (in particular because it does not draw distinctions between, say "Hispanic or Latino: White alone", "Hispanic or Latino: Black or African American alone", and "Hispanic or Latino: Two or more races"), we used these categories as a way of approximating broad trends in population distributions.
+
+We have no extreme values in this data to deal with, but we are missing data for two tracts in our county of focus. *[[DO WE KNOW WHY??? WASN'T ONE OF THOSE THAT BIG RESERVE AREA???]]* On our maps, these areas are grayed out to show in which reasons we were missing data. The validity of the portion for which our analysis relies upon estimates made from the data is caveated as being valid only for the nonmissing sample.
+
+We transform this data in a few ways for some of our visualizations.
+
+For our bar plot of the demographics of Broward County, we use the racial categories described above and compute the sum of the population observed in each category across all tracts, as well as the total county population.  We then divide the totals for each racial group by the total county population and multiply by 100 to get the percentage of the county population made up by each group.
+
+For our map of tracts by largest ethnic group, we create a variable identifying the largest racial group in each given tract. We then subset the original dataframe so that all tracts with the same dominant racial group are each in their own dataframe.  We then calculate what percentage of the total population of each tract the dominant group in that tract makes up.
+
+Finally, for our analysis of racial disparities in risk exposure to flooding, we first make a simplifying assumption that *within* tracts, population is dispersed evenly and there are no racial disparities in risk-exposure.  The effect of this assumption will likely be to bias us against finding disproportionate impacts.  Combining our Race/Income data with our NHFL data and reprojecting it to a projection that conserves area, we calculate the proportion of each tract's total area that is covered by each kind of flood zone. We then use our simplifying assumption to estimate the number of people in each category affected by each kind of flood zone.  We then separate "VE" and "AE" flood zones as our "high risk" areas *[[WHY THESE TWO?? WHAT DO THEY MEAN?]]*.  Finally, we compute what percent of the highest-risk population each group makes up by dividing the sum of the estimated affected population of that group by the sum of the total estimated affected population.
+
+
+### NHFL Data
+---------------------------------
+INSTRUCTIONS:  *[[[WHEN DONE, DELETE THIS INSTRUCTIONS SECTION]]]*
 
 Explain how you processed your data and why you made the choices you did. Identify the unit of analysis in your cleaned, merged dataset.
 
 Explain any transformations you applied, how you dealt with any missing data or extreme values, and why.
+---------------------------------
 
 
 
+[[HOW DEALT WITH MISSING AND/OR EXTREME VALUES]]
 
-
-
-Narrowed focus to Broward County, FL.  WHY??
-
-
-
-
+[[HOW DO WE TRANSFORM THE NHFL DATA TO GET WHAT WE NEED FOR THE HAZARDS?  WHY DO WE MAKE THE 'RISK' LEVEL IDENTIFICATION CHOICES WE DO?]]
+ - I assume the projection should be brought up
 
 
 
 ## Findings
 
 
+[[Basically, seems like white ppl are disproportionately at risk of flooding in this specific county because they tend to live on the coast; we get the disproportionate risk by comparing the two bar graphs, and the coastal-living explanation by comparing the hazard layer map to the demographics map; limitations to our estimates exist because of the simplifying assumption I describe in data processing... it may be that within the tracts themselves there are racial disparaties due to differences in location and housing quality]]
 
 
 
 
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-
-
-```{r}
-
-```
 
