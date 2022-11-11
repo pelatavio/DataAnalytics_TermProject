@@ -103,6 +103,13 @@ broward_pop_withtractAreas = st_set_geometry(broward_pop_geo_withtractAreas, NUL
 # Add back race/income data via left join
 broward_pop_hazzard_intersection4 = left_join(broward_pop_hazzard_intersection3, broward_pop_withtractAreas, by="TRACTA")
 
+# Resort so geometry is last column, save
+broward_pop_hazzard_intersection4 |>
+  select(FLD_ZON:fldArea, GISJOIN:trtArea, geometry) |>
+  select(-c(BLCK_GRPA)) |>
+  st_write("data_clean/broward_master_tidy.shp")
+
+
 #### Estimate number of individuals by race in high-risk areas ####
 
 # Make a simplifying assumption that *within* tracts, population is dispersed evenly and there are no racial disparities in risk-exposure
