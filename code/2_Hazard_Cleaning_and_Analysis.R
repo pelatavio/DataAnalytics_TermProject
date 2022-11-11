@@ -57,7 +57,7 @@ broward_hazzard1 <- broward_hazzard%>%
 #### JOINS / INTERSECTIONS #### -----------------------------------------------------------------
 # join broward demographics with broward tract geometry
 broward_pop_geo <- left_join(broward_pop1, broward_geo1, by = "TRACTA")
-broward_pop_geo <-st_as_sf(broward_pop_geo)
+broward_pop_geo <- st_as_sf(broward_pop_geo)
 
 # intersections
 broward_pop_hazzard_intersection <- st_intersection(broward_pop_geo, broward_hazzard1) # ouput 0 obs :(
@@ -129,7 +129,7 @@ broward_pop_hazzard_intersection5 = broward_pop_hazzard_intersection4 |>
          totEst = cvdArea*totPop)
 
 # Create dummy to identify high-risk zones
-broward_pop_hazzard_intersection5$highRsk = ifelse(broward_pop_hazzard_intersection5$FLD_ZON == "VE", 1, ifelse(broward_pop_hazzard_intersection4$FLD_ZON == "AE", 1, 0))
+broward_pop_hazzard_intersection5$highRsk = ifelse(broward_pop_hazzard_intersection5$FLD_ZON == "VE", 1, ifelse(broward_pop_hazzard_intersection5$FLD_ZON == "AE", 1, 0))
 
 # Separate high-risk zone data
 broward_highrisk = broward_pop_hazzard_intersection5 |>
@@ -166,7 +166,8 @@ highrisk_ethnic_composition = ggplot(forbarplot, (aes(x=Ethnicity, y=Percentage)
   geom_text(aes(label=round(Percentage, 2)), vjust=1.6, color="white", size=3.5) +
   labs(title="Demographics of Highest Risk Pop (Broward County, FL in 2020)",
        y = "Percentage of Population") +
-  scale_x_discrete(limits=c("White", "Hispanic", "Black","Asian","Other"))
+  scale_x_discrete(limits=c("White", "Hispanic", "Black","Asian","Other"))+
+  coord_cartesian(ylim = c(0,50))
 
 highrisk_ethnic_composition
 
@@ -204,3 +205,5 @@ panel
 tmap_save(income, "output/maps/broward_median_income.png")
 tmap_save(hazzard, "output/maps/broward_ranked_fld_hzd.png")
 tmap_save(panel, "output/maps/broward_panel_income_fldhzd.png")
+ggsave(plot = highrisk_ethnic_composition, filename = "output/charts/highrisk_ethnic_composition.png")
+

@@ -6,6 +6,8 @@ library(tidyverse)
 library(tigris)
 library(sf)
 library(tmap)
+library(ggplot2)
+library(gridExtra)
 
 # Load Florida Race and Income data and isolate Broward County
 
@@ -81,8 +83,14 @@ broward_ethnic_composition = ggplot(forbarplot, (aes(x=Ethnicity, y=Percentage))
   geom_text(aes(label=round(Percentage, 2)), vjust=1.6, color="white", size=3.5) +
   labs(title="Demographics of Broward County, FL (2020)",
        y = "Percentage of Population") +
-  scale_x_discrete(limits=c("White", "Hispanic", "Black","Asian","Other"))
+  scale_x_discrete(limits=c("White", "Hispanic", "Black","Asian","Other")) + 
+  coord_cartesian(ylim = c(0,50))
 
+broward_ethnic_composition
+
+# NEED to make this run in one file
+
+panel2 <- arrangeGrob(broward_ethnic_composition, highrisk_ethnic_composition, ncol = 2)
 
 #### Map of Tracts by largest nonwhite group ####
 
@@ -249,6 +257,6 @@ broward_ethnic_map = tm_shape(jbt_demographics2_black) + tm_polygons("percent_bl
 tmap_save(income_map, "output/maps/broward_median_income.png")
 tmap_save(broward_ethnic_map, "output/maps/broward_ethnic_map.png")
 tmap_save(hazzard, "output/maps/broward_ranked_fld_hzd.png")
-ggsave(plot = broward_ethnic_composition, filename = "output/charts/broward_ethnic_composition.pdf")
-ggsave(plot = highrisk_ethnic_composition, filename = "output/charts/highrisk_ethnic_composition.pdf")
+ggsave(plot = broward_ethnic_composition, filename = "output/charts/broward_ethnic_composition.png")
+ggsave(plot = panel2, filename = "output/charts/bargraph_panel.png")
 
