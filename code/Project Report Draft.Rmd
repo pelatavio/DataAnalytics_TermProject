@@ -61,7 +61,7 @@ Our tract-level data on racial demographics includes many different categories, 
 
 While this is an oversimplification of race and ethnicity in the United States (in particular because it does not draw distinctions between, say "Hispanic or Latino: White alone", "Hispanic or Latino: Black or African American alone", and "Hispanic or Latino: Two or more races"), we used these categories as a way of approximating broad trends in population distributions.
 
-We have no extreme values in this data to deal with, but we are missing data for two tracts in our county of focus. The largest tract missing is apart of the Everglades National Forest, therefore there is no demographic data to report. On our maps, these areas are grayed out to show in which reasons we were missing data. The validity of the portion for which our analysis relies upon estimates made from the data is caveated as being valid only for the non missing sample.
+We have no extreme values in this data to deal with, but we are missing data for two tracts in our county of focus. The largest tract missing is a part of the Everglades National Forest, therefore there is no demographic data to report. On our maps, these areas are grayed out to show in which reasons we were missing data. The validity of the portion for which our analysis relies upon estimates made from the data is caveated as being valid only for the non missing sample.
 
 We transform this data in a few ways for some of our visualizations.
 
