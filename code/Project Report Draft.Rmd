@@ -80,17 +80,19 @@ We make the following risk level numeric ranking choices based off the following
 
 #### Definitions of FEMA Flood Zone Designations - within our sample
 
-"AE" Special High Risk Category - Areas subject to inundation by the 1-percent-annual-chance flood event determined by detailed methods. BFEs are shown within these zones
+"VE" Coastal High Risk Category - Areas along coasts subject to inundation by the 1-percent-annual-chance flood event with additional hazards due to storm-induced velocity wave action. BFEs derived from detailed hydraulic coastal analyses are shown within these zones. Ranking 5.
 
-"AH" Special High Risk Category - Areas subject to inundation by 1-percent-annual-chance shallow flooding (usually areas of ponding) where average depths are 1–3 feet. BFEs derived from detailed hydraulic analyses are shown in this zone.
+"AE" Special High Risk Category - Areas subject to inundation by the 1-percent-annual-chance flood event determined by detailed methods. BFEs are shown within these zones. Ranking 4.
 
-"AO" Special High Risk Category - Areas subject to inundation by 1-percent-annual-chance shallow flooding (usually sheet flow on sloping terrain) where average depths are 1–3 feet. Average flood depths derived from detailed hydraulic analyses are shown within this zone.
+"AH" Special High Risk Category - Areas subject to inundation by 1-percent-annual-chance shallow flooding (usually areas of ponding) where average depths are 1–3 feet. BFEs derived from detailed hydraulic analyses are shown in this zone. Ranking 3.
 
-"VE" Coastal High Risk Category - Areas along coasts subject to inundation by the 1-percent-annual-chance flood event with additional hazards due to storm-induced velocity wave action. BFEs derived from detailed hydraulic coastal analyses are shown within these zones.
+"AO" Special High Risk Category - Areas subject to inundation by 1-percent-annual-chance shallow flooding (usually sheet flow on sloping terrain) where average depths are 1–3 feet. Average flood depths derived from detailed hydraulic analyses are shown within this zone. Ranking 2.
 
-"X" Moderate and minimal risk category - Moderate risk areas within the 0.2-percent-annual-chance floodplain, areas of 1-percent-annual-chance flooding where average depths are less than 1 foot, areas of 1-percent-annual-chance flooding where the contributing drainage area is less than 1 square mile, and areas protected from the 1-percent-annual-chance flood by a levee. No BFEs or base flood depths are shown within these zones. (Zone X (shaded) is used on new and revised maps in place of Zone B). Minimal risk areas outside the 1-percent and .2-percent-annual-chance floodplains. No BFEs or base flood depths are shown within these zones. (Zone X (unshaded) is used on new and revised maps in place of Zone C).
+"X" Moderate and minimal risk category - Moderate risk areas within the 0.2-percent-annual-chance floodplain, areas of 1-percent-annual-chance flooding where average depths are less than 1 foot, areas of 1-percent-annual-chance flooding where the contributing drainage area is less than 1 square mile, and areas protected from the 1-percent-annual-chance flood by a levee. No BFEs or base flood depths are shown within these zones. (Zone X (shaded) is used on new and revised maps in place of Zone B). Minimal risk areas outside the 1-percent and .2-percent-annual-chance floodplains. No BFEs or base flood depths are shown within these zones. (Zone X (unshaded) is used on new and revised maps in place of Zone C). Ranking 1.
 
-"D" Undetermined risk areas - Unstudied areas where flood hazards are undetermined, but flooding is possible. No mandatory flood insurance purchase requirements apply, but coverage is available in participating communities.
+"D" Undetermined risk areas - Unstudied areas where flood hazards are undetermined, but flooding is possible. No mandatory flood insurance purchase requirements apply, but coverage is available in participating communities. Ranking 0.
+All definitions at (https://floodpartners.com/fema-flood-map/)
+
 
 ## Findings
 
@@ -101,13 +103,13 @@ knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/Dat
 
 ```
 
-This map shows FEMA Flood Hazard Data layer with census tract borders for Broward County. The lighter the shade indicates lower flood risk and the darker the shade indicates higher flood risk.  *[[DESCRIBE AND JUSTIFY HOW WE CODED THE RISK LEVELS]]* These flood zones are used to determine the need for flood risk insurance for property owners. We can see that the eastern border of the county is at the highest level of risk (likely because it is on the coast). Even so, small high risk zones are scattered throughout the county, and there are some larger moderately at-risk locales at the north and south -western sections of the county for which there is flood risk data.
+This map shows FEMA Flood Hazard Data layer with census tract borders for Broward County. The lighter the shade indicates lower flood risk and the darker the shade indicates higher flood risk. See Definitions of FEMA Flood Zone Designations for details on how numeric flood rankings were created. These flood zones are used to determine the need for flood risk insurance for property owners. We can see that the eastern border of the county is at the highest level of risk (likely because it is on the coast). Even so, small high risk zones are scattered throughout the county, and there are some larger moderately at-risk locales at the north and south -western sections of the county for which there is flood risk data.
 
 
 ### Median Household income by tract
 
 ```{r, echo=FALSE}
-knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_panel_income_fldhzd.png")
+knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_median_income.png")
 
 ```
 

@@ -193,7 +193,7 @@ hazzard <- tm_shape(broward_hazzard1) + tm_polygons("risk",
                                                    style = "cont",
                                                    breaks = c(0, 1, 2, 3, 4, 5),
                                                    border.alpha = 0,
-                                                   title = "Flood Hazzard Zones",
+                                                   title = "Flood Hazard Zones",
                                                    palette = "PuRd")
 hazzard <- hazzard + tm_shape(broward_geo1) + tm_borders(lwd = 0.5, col = "black")
 hazzard
