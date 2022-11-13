@@ -94,36 +94,49 @@ We make the following risk level numeric ranking choices based off the following
 
 ## Findings
 
-Hazard Flood Layer
+### Hazard Flood Layer
+
 ```{r, echo= FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_ranked_fld_hzd.png")
 
 ```
-This map shows FEMA Flood Hazard Data layer with census tract borders for Broward County. The lighter the shade indicates lower flood risk and the darker the shade indicates higher flood risk. These flood zones are used to determine the need for flood risk insurance for property owners. 
+
+This map shows FEMA Flood Hazard Data layer with census tract borders for Broward County. The lighter the shade indicates lower flood risk and the darker the shade indicates higher flood risk.  *[[DESCRIBE AND JUSTIFY HOW WE CODED THE RISK LEVELS]]* These flood zones are used to determine the need for flood risk insurance for property owners. We can see that the eastern border of the county is at the highest level of risk (likely because it is on the coast). Even so, small high risk zones are scattered throughout the county, and there are some larger moderately at-risk locales at the north and south -western sections of the county for which there is flood risk data.
 
 
-Hazard Flood Layer vs Median Household income by tract
+### Median Household income by tract
+
 ```{r, echo=FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_panel_income_fldhzd.png")
 
 ```
-For a side by side comparison we have tract level median household income on the left and the flood risk map from above on the right. Median house hold income comes from the 2020 census data were the the lighter shaded tracts represent lower income and the darker shaded tracts represent wealthier tracts. There are 159 tracts with median household income below 52,000 (upper limit for lower-middle class). There is 87 tracts with income above 87,000 (lower limit for upper middle class). 
 
-Largest Racial group in tract by population
+This map shows median household income by tract, acquired from 2020 census data, with the the lighter-shaded tracts representing lower income and the darker-shaded tracts representing wealthier tracts. There are 159 tracts with median household income below 52,000 (upper limit for lower-middle class). There is 87 tracts with income above 87,000 (lower limit for upper middle class). At a glance, it is hard to see a clear, consistent relationship between wealth and flood risk.  The wealthiest tract is in a moderately at-risk location, as are several tracts on the higher end of the income distribution in the southwestern edge of the urban part of the county. The high-risk coastal tracts have neither the highest nor lowest median incomes in the county. Most of the lower income tracts are roughly in the center of Broward's urban region.
+
+### Largest Racial group in tract by population
+
 ```{r, echo=FALSE}
 
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_ethnic_map.png")
 
 ```
-The figure displays the tracts by largest racial groups using data from the 2020 census. Notably white people are the largest group along the coast where there is the greates flood risk.
 
-Main Findings: Bar Chart
+This figure displays the tracts by largest racial groups using data from the 2020 census. Notably, the coast is heavily white-dominated, while black-majority tracts are clustered most densely in the center of Broward's urban area.
+
+### Main Findings: Bar Chart of Demographic Disparities in Flood Risk
+
 ```{r, echo=FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/charts/bargraph_panel.png")
 ```
 
-In Broward County white people face a disproportionate flood hazard risk because they tend to live in high risk flood zones.
+This figure shows the demographic composition of Broward county as a whole in 2020 compared to our estimates for the demographics of the county at highest risk of experiencing flooding.  We can see that white people are estimated to be at disproportionately high risk, while black people are estimated to be at disproportionately low risk.  This is likely due in large part to the fact that many white people live on the coast, which has the greatest concentration of high-risk flood zones, whereas many black people live in the low-risk center of Broward's urban region.
 
-# Discussion
+### Limitations
 
-The white population in Broward County are disproportionately at risk of flooding because they tend to live on the coast. We directly observe the disproportionate risk by comparing the two bar graphs. However it is also explained by comparing the hazard layer map to the racial demographics map. One limitations to our estimates exist because of the simplifying assumption that racial and income characteristics are the same within each tract. When in reality it may be that within the tracts themselves there are racial disparities due to differences in location and housing quality.
+Our findings suffer from several limitations.
+
+First, are missing income and demographic data for two tracts in our county of focus. The largest tract missing is a part of the Everglades National Forest, which is not expected to have much flood risk or population density, and the other tract for which we are missing data contains no high-risk zones. We thus expect our results to hold, regardless of the missing data, but should still note that we can only say with certainty that our findings are valid for the non-missing sample.
+
+Second, we must make a large simplifying assumption when calculating estimates for high-risk demographics in Broward, namely that *within tracts*, the population is perfectly evenly dispersed, and there are no racial inequities. It may be the case, then, that due to differences in individual access to flood insurance or protective architecture, different degrees of crowded housing or intergenerational homes in different areas within-tracts, the amount in which disproportionate risk is experienced differs from our findings. Furthermore, exposure to risk is not a perfect proxy for looking at the actual damages suffered from flooding because there may be different degrees of adaptation depending on knowledge of risk and resource availability.
+
+Finally, we should stress that we are not attaching normative or causal significance to our findings. We have not indicated whether the disparities in risk-exposure are a result of personal choice, historical happenstance, discrimination, etc. These findings and subsequent applications of our current methodology should be seen as a first step to examining county and tract-level effects of flooding.  Further work to help build on their significance would be to combine our demographic data with flood insurance data, or use our median household income data to estimate flood insurance access and use it to estimate disparities in the impacts of flooding rather than simply risk exposure.
