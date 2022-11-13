@@ -47,7 +47,14 @@ income_map = tm_shape(joined_broward_tracts_noempty) + tm_polygons("median_house
             legend.bg.color = "white",
             legend.frame = "black")
 
+# Viewing distribution of median household income
+summary(broward_Race_and_Income$median_household_income)
 
+test <- broward_Race_and_Income%>%
+  filter(median_household_income <= 52000)
+
+test2 <- broward_Race_and_Income%>%
+  filter(median_household_income >= 87000)
 
 # Exploration of Racial Demographics ----------------------------------------------------------------
 

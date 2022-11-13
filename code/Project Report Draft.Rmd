@@ -94,38 +94,36 @@ We make the following risk level numeric ranking choices based off the following
 
 ## Findings
 
-
-[[Basically, seems like white ppl are disproportionately at risk of flooding in this specific county because they tend to live on the coast; we get the disproportionate risk by comparing the two bar graphs, and the coastal-living explanation by comparing the hazard layer map to the demographics map; limitations to our estimates exist because of the simplifying assumption I describe in data processing... it may be that within the tracts themselves there are racial disparities due to differences in location and housing quality]]
-
 Hazard Flood Layer
-```{r}
+```{r, echo= FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_ranked_fld_hzd.png")
 
 ```
-
+This map shows FEMA Flood Hazard Data layer with census tract borders for Broward County. The lighter the shade indicates lower flood risk and the darker the shade indicates higher flood risk. These flood zones are used to determine the need for flood risk insurance for property owners. 
 
 
 Hazard Flood Layer vs Median Household income by tract
-```{r}
+```{r, echo=FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_panel_income_fldhzd.png")
 
 ```
-The tract with the highest median household income is just below Palm beach county, *[[How  many tracts are there with median household income below 50 or 40 thousand]]*
+For a side by side comparison we have tract level median household income on the left and the flood risk map from above on the right. Median house hold income comes from the 2020 census data were the the lighter shaded tracts represent lower income and the darker shaded tracts represent wealthier tracts. There are 159 tracts with median household income below 52,000 (upper limit for lower-middle class). There is 87 tracts with income above 87,000 (lower limit for upper middle class). 
 
 Largest Racial group in tract by population
-```{r}
+```{r, echo=FALSE}
 
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_ethnic_map.png")
 
 ```
-Broward county one of the most diverse counties in Florida so we decide to use it for our analysis.
-
+The figure displays the tracts by largest racial groups using data from the 2020 census. Notably white people are the largest group along the coast where there is the greates flood risk.
 
 Main Findings: Bar Chart
-```{r}
+```{r, echo=FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/charts/bargraph_panel.png")
 ```
 
-In Broward County white people are at a disproportionate risk because they live in high risk flood zones. As seen in the ethnic composition map they tend to live on the coast in this county. 
+In Broward County white people face a disproportionate flood hazard risk because they tend to live in high risk flood zones.
 
+# Discussion
 
+The white population in Broward County are disproportionately at risk of flooding because they tend to live on the coast. We directly observe the disproportionate risk by comparing the two bar graphs. However it is also explained by comparing the hazard layer map to the racial demographics map. One limitations to our estimates exist because of the simplifying assumption that racial and income characteristics are the same within each tract. When in reality it may be that within the tracts themselves there are racial disparities due to differences in location and housing quality.
