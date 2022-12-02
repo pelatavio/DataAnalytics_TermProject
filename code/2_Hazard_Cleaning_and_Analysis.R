@@ -1,21 +1,15 @@
 # set working directory to shared OneDrive
 
-library(sf)
-library(readr)
-library(tidyverse)
-library(dplyr)
-library(tigris)
-library(ggplot2)
-library(tmap)
-library(car)
+# load in packages (must first install pacman)
+pacman::p_load(sf, readr, tidyverse, dplyr, tigris, ggplot2, tmap, car)
 
 #### LOAD IN DATA ##### -------------------------------------------------------------
 # load in flood hazard data layer for Broward County, FL
-broward_hazzard <- st_read("data_raw/12011C_20221102/S_FLD_HAZ_AR.shp") # CRS NAD83
-broward_hazzard <- st_make_valid(broward_hazzard)
+broward_hazard <- st_read("data/raw/12011C_20221102/S_FLD_HAZ_AR.shp") # CRS NAD83
+broward_hazard <- st_make_valid(broward_hazard)
 
 # load in clean Florida demographics (tract income and race data)
-florida_pop <- read_csv("data_clean/Florida_Race_and_Income_tract")
+florida_pop <- read_csv("data/clean/Florida_Race_and_Income_tract")
 
 # load in US county geometry and florida tracts
 counties <- counties(cb = TRUE)
@@ -49,8 +43,8 @@ broward_pop1 <- broward_pop%>%
   filter(TRACTA != 990000)
 
 # create numeric variable that ranks hazzard layer 
-broward_hazzard1 <- broward_hazzard%>%
-  mutate(risk = recode(broward_hazzard$FLD_ZONE,
+broward_hazard1 <- broward_hazard%>%
+  mutate(risk = recode(broward_hazard$FLD_ZONE,
                        recodes = "'VE' = 5; 'AE' = 4; 'AH'= 3; 'AO' = 2; 'X' = 1; 'D' = 0; 'AREA NOT INCLUDED' = 0;"))
 
 
@@ -60,29 +54,31 @@ broward_pop_geo <- left_join(broward_pop1, broward_geo1, by = "TRACTA")
 broward_pop_geo <- st_as_sf(broward_pop_geo)
 
 # intersections
-broward_pop_hazzard_intersection <- st_intersection(broward_pop_geo, broward_hazzard1) # ouput 0 obs :(
+broward_pop_hazard_intersection <- st_intersection(broward_pop_geo, broward_hazard1) # ouput 0 obs :(
 
 # reproject in to crs that preserves area
-broward_pop_hazzard_intersection1 <- st_transform(broward_pop_hazzard_intersection, 2163)
+broward_pop_hazard_intersection1 <- st_transform(broward_pop_hazard_intersection, 2163)
 
 # calculate area
-broward_pop_hazzard_intersection2 <- broward_pop_hazzard_intersection1 %>%
-  cbind(area = units::set_units(st_area(broward_pop_hazzard_intersection1), km^2))
+broward_pop_hazard_intersection2 <- broward_pop_hazard_intersection1 %>%
+  cbind(area = units::set_units(st_area(broward_pop_hazard_intersection1), km^2))
 
-st_write(broward_pop_hazzard_intersection2, "data_temp/pop_hazzard_intersection_area.shp")
+st_write(broward_pop_hazard_intersection2, "data/temp/pop_hazard_intersection_area.shp")
 
 # Make key columns easier to read in shapefile
-colnames(broward_pop_hazzard_intersection2)[13:17] = c("nhsTot", "nhsWhit", "nhsBlck", "nhsNatv", "nhsAsia")
-colnames(broward_pop_hazzard_intersection2)[23] = c("hispTot")
-colnames(broward_pop_hazzard_intersection2)[33] = c("mIncome")
+colnames(broward_pop_hazard_intersection2)[13:17] = c("nhsTot", "nhsWhit", "nhsBlck", "nhsNatv", "nhsAsia")
+colnames(broward_pop_hazard_intersection2)[23] = c("hispTot")
+colnames(broward_pop_hazard_intersection2)[33] = c("mIncome")
 
 # create final data frame were each tract is repeated as many hazzard zones *types*  there are in the tract.
 # there should not be more than 2,912 obsrvations. there are 7 different FLD_ZONE values and 416*7 = 2,912
 # likely this will be less than 2912 bc I don't think every tract has each type of zone. 
 # I have calculated each area and we want the sum of the area of each zone type for each tract
 # becareful to not sum the tract population data but to make sure it stays the same as the original dataset.
-broward_pop_hazzard_intersection3 <- broward_pop_hazzard_intersection2 %>%
-  group_by(FLD_ZON, TRACTA) %>%
+
+# summarize area by tract and flood zone type
+broward_pop_hazard_intersection3 <- broward_pop_hazard_intersection2 %>%
+  group_by(FLD_ZONE, TRACTA) %>%
   summarise(fldArea = sum(area))
   
 
@@ -101,13 +97,14 @@ broward_pop_geo_withtractAreas = broward_pop_geo_proj |>
 broward_pop_withtractAreas = st_set_geometry(broward_pop_geo_withtractAreas, NULL)
 
 # Add back race/income data via left join
-broward_pop_hazzard_intersection4 = left_join(broward_pop_hazzard_intersection3, broward_pop_withtractAreas, by="TRACTA")
+broward_pop_hazard_intersection4 = left_join(broward_pop_hazard_intersection3, broward_pop_withtractAreas, by="TRACTA")
 
 # Resort so geometry is last column, save
-broward_pop_hazzard_intersection4 |>
-  select(FLD_ZON:fldArea, GISJOIN:trtArea, geometry) |>
-  select(-c(BLCK_GRPA)) |>
-  st_write("data_clean/broward_master_tidy.shp")
+broward_pop_hazard_intersection4 %>%
+  select(FLD_ZONE:fldArea, GISJOIN:trtArea, geometry) |>
+  select(-c(BLCK_GRPA))
+
+st_write(broward_pop_hazard_intersection4, "data/clean/broward_master_tidy.shp", append = TRUE)
 
 
 #### Estimate number of individuals by race in high-risk areas ####
@@ -117,7 +114,7 @@ broward_pop_hazzard_intersection4 |>
 
 # Get proportion of tract's total area covered by its respective kind of flood zone, then
 # Estimate people affected by the flood zone using our simplifying assumption
-broward_pop_hazzard_intersection5 = broward_pop_hazzard_intersection4 |>
+broward_pop_hazard_intersection5 = broward_pop_hazard_intersection4 |>
   ungroup() |>
   mutate(cvdArea = fldArea/trtArea,
          whitEst = cvdArea*nonhisp_white,
@@ -129,10 +126,10 @@ broward_pop_hazzard_intersection5 = broward_pop_hazzard_intersection4 |>
          totEst = cvdArea*totPop)
 
 # Create dummy to identify high-risk zones
-broward_pop_hazzard_intersection5$highRsk = ifelse(broward_pop_hazzard_intersection5$FLD_ZON == "VE", 1, ifelse(broward_pop_hazzard_intersection5$FLD_ZON == "AE", 1, 0))
+broward_pop_hazard_intersection5$highRsk = ifelse(broward_pop_hazard_intersection5$FLD_ZON == "VE", 1, ifelse(broward_pop_hazard_intersection5$FLD_ZON == "AE", 1, 0))
 
 # Separate high-risk zone data
-broward_highrisk = broward_pop_hazzard_intersection5 |>
+broward_highrisk = broward_pop_hazard_intersection5 |>
   filter(highRsk==1)
 
 # Use estimated ppl affected to get demographics affected (proportion)

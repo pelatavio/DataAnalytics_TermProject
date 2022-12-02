@@ -30,7 +30,7 @@ write_csv(no_useless_columns1, "Race_and_Income_blockgrp")
 # Clean tract data -----------------------------------------------------------------
 
 
-Race_and_Income_tract_raw = read_csv("data/Race_and_Income_tract_raw.csv")
+Race_and_Income_tract_raw = read_csv("data/raw/nhgis0001_csv/Race_and_Income_tract_raw.csv")
 
 no_useless_columns2 = Race_and_Income_tract_raw |>
   select(GISJOIN:STUSAB, STATE:COUNTYA, TRACTA:BLCK_GRPA, GEOID, NAME_E:AMR8M001)
@@ -48,7 +48,7 @@ write_csv(no_useless_columns2, "Race_and_Income_tract")
 
 # Clean county data -----------------------------------------------------------------
 
-Race_and_Income_county_raw = read_csv("data/Race_and_Income_county_raw.csv")
+Race_and_Income_county_raw = read_csv("data/raw/nhgis0001_csv/Race_and_Income_county_raw.csv")
 
 no_useless_columns3 = Race_and_Income_county_raw |>
   select(GISJOIN:STUSAB, STATE:COUNTYA, TRACTA:BLCK_GRPA, GEOID, NAME_E:AMR8M001)
@@ -61,13 +61,13 @@ skim(no_useless_columns3)
 
 ## WARNING: There is one missing value in our median_household_income variable
 
-write_csv(no_useless_columns3, "Race_and_Income_county")
+write_csv(no_useless_columns3, "data/clean/Race_and_Income_county")
 
 # Look at NA results to figure out what data we're missing ----------------------------------------
 
-Race_and_Income_blockgrp = read_csv("Race_and_Income_blockgrp")
-Race_and_Income_tract = read_csv("Race_and_Income_tract")
-Race_and_Income_county = read_csv("Race_and_Income_county")
+Race_and_Income_blockgrp = read_csv("data/clean/Race_and_Income_blockgrp")
+Race_and_Income_tract = read_csv("data/clean/Race_and_Income_tract")
+Race_and_Income_county = read_csv("data/clean/Race_and_Income_county")
 
 checkingNAs_blockgrp = Race_and_Income_blockgrp |>
   filter(is.na(median_household_income)==TRUE)
@@ -129,11 +129,11 @@ Race_and_Income_blockgrp |>
 
 # Isolate tract-level Florida Data and save ------------------------------------------------
 
-Florida_Race_and_Income_tract = Race_and_Income_tract = read_csv("Race_and_Income_tract.csv") |>
+Florida_Race_and_Income_tract = Race_and_Income_tract = read_csv("data/clean/Race_and_Income_tract") |>
   select(GISJOIN:median_household_income) |>
   filter(STATE=="Florida")
 
-write_csv(Florida_Race_and_Income_tract, "Florida_Race_and_Income_tract.csv")
+write_csv(Florida_Race_and_Income_tract, "data/clean/Florida_Race_and_Income_tract.csv")
 
 
 
