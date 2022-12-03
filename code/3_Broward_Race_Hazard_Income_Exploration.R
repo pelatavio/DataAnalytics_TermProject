@@ -195,11 +195,13 @@ jbt_demographics1 |>
 
 jbt_demographics1_black = jbt_demographics1 |>
   filter(largest_nonwhite_grp=="black") |>
-  mutate(percent_black = (nonhisp_black/totPop)*100)
+  mutate(percent_black = (nonhisp_black/totPop)*100) %>%
+  filter(TRACTA != "980000")
 
 jbt_demographics1_hispanic = jbt_demographics1 |>
   filter(largest_nonwhite_grp=="hispanic") |>
-  mutate(percent_hispanic = (hisp_total/totPop)*100)
+  mutate(percent_hispanic = (hisp_total/totPop)*100) %>%
+  filter(TRACTA != "980000")
 
 # Map
 
@@ -276,16 +278,27 @@ jbt_demographics2 |>
 jbt_demographics2_black = jbt_demographics2 |>
   filter(largest_grp=="black") |>
   mutate(percent_black = (nonhisp_black/totPop)*100)
+  #st_bbox(c(xmin = -80.5, xmax = 26, ymax = 48.6, ymin = 47.9), crs = st_crs(4269))
 
 jbt_demographics2_hispanic = jbt_demographics2 |>
   filter(largest_grp=="hispanic") |>
-  mutate(percent_hispanic = (hisp_total/totPop)*100)
+  mutate(percent_hispanic = (hisp_total/totPop)*100) 
+  #st_bbox(c(xmin = 16.1, xmax = 16.6, ymax = 48.6, ymin = 47.9), crs = st_crs(4269))
 
 jbt_demographics2_white = jbt_demographics2 |>
   filter(largest_grp=="white") |>
   mutate(percent_white = (nonhisp_white/totPop)*100)
+  #st_bbox(c(xmin = 16.1, xmax = 16.6, ymax = 48.6, ymin = 47.9), crs = st_crs(4269))
 
 # Map
+
+# find bounding box values
+#jbt_demographics2 <- jbt_demographics2 %>%
+ # mutate(minx = min(xcoords),
+         #maxx = max(xcoords),
+         #miny = min(ycoords),
+         #maxy = max(ycoords))
+
 
 broward_ethnic_map = tm_shape(jbt_demographics2_black) + tm_polygons("percent_black", 
                                                                      style = "cont",

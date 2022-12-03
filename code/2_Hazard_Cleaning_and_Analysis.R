@@ -177,22 +177,32 @@ ggsave(plot = highrisk_ethnic_composition, filename = "output/charts/highrisk_et
 
 #### MAPPING ####--------------------------------------------------------------------------------
 
-income <- tm_shape(broward_pop_geo) + tm_polygons("median_household_income" , 
+# create bounding box to drop everglades tract
+broward_pop_geo1 <- broward_pop_geo %>%
+  filter(TRACTA != "980000")
+
+broward_geo2 <- broward_geo1 %>%
+  filter(TRACTA != "980000")
+
+broward_hazard2 <- broward_hazard1 %>%
+  filter(FLD_ZONE != "D")
+
+income <- tm_shape(broward_pop_geo1) + tm_polygons("median_household_income" , 
                                                               style = "cont",
                                                               breaks = c(14000, 50000, 100000, 150000, 200000),
                                                               colorNA = "light grey",
                                                               title = "Median Household Income",
                                                               palette = "YlGn")
-income <- income + tm_shape(broward_geo1) + tm_borders(lwd = 0.5, col = "black")
+income <- income + tm_shape(broward_geo2) + tm_borders(lwd = 0.5, col = "black")
 income
 
-hazard <- tm_shape(broward_hazard1) + tm_polygons("risk",
+hazard <- tm_shape(broward_hazard2) + tm_polygons("risk",
                                                    style = "cont",
                                                    breaks = c(0, 1, 2, 3, 4, 5),
                                                    border.alpha = 0,
                                                    title = "Flood Hazard Zones",
                                                    palette = "PuRd")
-hazard <- hazard + tm_shape(broward_geo1) + tm_borders(lwd = 0.5, col = "black")
+hazard <- hazard + tm_shape(broward_geo2) + tm_borders(lwd = 0.5, col = "black")
 hazard
 
 panel <- tmap_arrange(income, hazard, ncol = 2)
