@@ -1,13 +1,9 @@
 
-# Set wd to Github
+# Set wd to shared OneDrive
 ## e.g., setwd("C:/Users/pelat/OneDrive/Documents/GitHub/DataAnalytics_TermProject")
 
-library(tidyverse)
-library(tigris)
-library(sf)
-library(tmap)
-library(ggplot2)
-library(gridExtra)
+# load in packages
+pacman::p_load(tidyverse, tigris, sf, tmap, ggplot2, gridExtra)
 
 # Load Florida Race and Income data and isolate Broward County
 
@@ -15,6 +11,8 @@ Florida_Race_and_Income_tract = read_csv("data/clean/Florida_Race_and_Income_tra
 
 broward_Race_and_Income = Florida_Race_and_Income_tract |>
   filter(COUNTY=="Broward County")
+
+broward_master_tidy <- st_read("data/clean/broward_master_tidy.shp")
 
 # Merge race/income data with spatial geometry so it can be mapped
 
@@ -95,7 +93,58 @@ broward_ethnic_composition = ggplot(forbarplot, (aes(x=Ethnicity, y=Percentage))
 
 broward_ethnic_composition
 
-# NEED to make this run in one file
+# Re-create highrisk_ethnic_composition to create side-by-side panel
+broward_pop_hazard_intersection5 = broward_master_tidy |>
+  ungroup() |>
+  mutate(cvdArea = fldArea/trtArea,
+         whitEst = cvdArea*nnhsp_w,
+         blckEst = cvdArea*nnhsp_b,
+         natvEst = cvdArea*nnhsp_n,
+         asiaEst = cvdArea*nnhsp_sn,
+         hispEst = cvdArea*hsp_ttl,
+         othrEst = cvdArea*(totPop-(nnhsp_w + nnhsp_b + nnhsp_n + nnhsp_sn + hsp_ttl)),
+         totEst = cvdArea*totPop)
+
+# Create dummy to identify high-risk zones
+broward_pop_hazard_intersection5$highRsk = ifelse(broward_pop_hazard_intersection5$FLD_ZON == "VE", 1, ifelse(broward_pop_hazard_intersection5$FLD_ZON == "AE", 1, 0))
+
+# Separate high-risk zone data
+broward_highrisk = broward_pop_hazard_intersection5 |>
+  filter(highRsk==1)
+
+# Use estimated ppl affected to get demographics affected (proportion)
+broward_highrisk_affected = broward_highrisk |>
+  summarize(pctWhit = sum(whitEst)/sum(totEst) * 100,
+            pctBlck = sum(blckEst)/sum(totEst) * 100,
+            pctNatv = sum(natvEst)/sum(totEst) * 100,
+            pctAsia = sum(asiaEst)/sum(totEst) * 100,
+            pctHisp = sum(hispEst)/sum(totEst) * 100,
+            pctOthr = sum(othrEst)/sum(totEst) * 100)
+
+# Reformat the data and graph it in a bar plot
+
+broward_highrisk_affected = st_set_geometry(broward_highrisk_affected, NULL)
+
+colnames(broward_highrisk_affected) = c("White", "Black", "Native", "Asian", "Hispanic", "Other")
+
+broward_highrisk_affected$White = as.numeric(broward_highrisk_affected$White)
+broward_highrisk_affected$Black = as.numeric(broward_highrisk_affected$Black)
+broward_highrisk_affected$Native = as.numeric(broward_highrisk_affected$Native)
+broward_highrisk_affected$Asian = as.numeric(broward_highrisk_affected$Asian)
+broward_highrisk_affected$Hispanic = as.numeric(broward_highrisk_affected$Hispanic)
+broward_highrisk_affected$Other = as.numeric(broward_highrisk_affected$Other)
+
+forbarplot = broward_highrisk_affected |> 
+  pivot_longer(cols=White:Other, names_to="Ethnicity", values_to="Percentage") |>
+  arrange(Percentage)
+
+highrisk_ethnic_composition = ggplot(forbarplot, (aes(x=Ethnicity, y=Percentage))) +
+  geom_bar(stat="identity", width=0.5, fill="steelblue") +
+  geom_text(aes(label=round(Percentage, 2)), vjust=1.6, color="white", size=3.5) +
+  labs(title="Demographics of Highest Risk Pop (Broward County, FL in 2020)",
+       y = "Percentage of Population") +
+  scale_x_discrete(limits=c("White", "Hispanic", "Black","Asian","Other"))+
+  coord_cartesian(ylim = c(0,50))
 
 panel2 <- arrangeGrob(broward_ethnic_composition, highrisk_ethnic_composition, ncol = 2)
 

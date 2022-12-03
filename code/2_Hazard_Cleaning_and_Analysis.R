@@ -126,7 +126,7 @@ broward_pop_hazard_intersection5 = broward_pop_hazard_intersection4 |>
          totEst = cvdArea*totPop)
 
 # Create dummy to identify high-risk zones
-broward_pop_hazard_intersection5$highRsk = ifelse(broward_pop_hazard_intersection5$FLD_ZON == "VE", 1, ifelse(broward_pop_hazard_intersection5$FLD_ZON == "AE", 1, 0))
+broward_pop_hazard_intersection5$highRsk = ifelse(broward_pop_hazard_intersection5$FLD_ZONE == "VE", 1, ifelse(broward_pop_hazard_intersection5$FLD_ZONE == "AE", 1, 0))
 
 # Separate high-risk zone data
 broward_highrisk = broward_pop_hazard_intersection5 |>
@@ -172,7 +172,7 @@ highrisk_ethnic_composition
 
 # change working directory here to save to github
 ## e.g., setwd("C:/Users/pelat/OneDrive/Documents/GitHub/DataAnalytics_TermProject")
-ggsave(plot = highrisk_ethnic_composition, filename = "output/charts/highrisk_ethnic_composition.pdf")
+ggsave(plot = highrisk_ethnic_composition, filename = "output/charts/highrisk_ethnic_composition.png")
 
 
 #### MAPPING ####--------------------------------------------------------------------------------
@@ -186,21 +186,21 @@ income <- tm_shape(broward_pop_geo) + tm_polygons("median_household_income" ,
 income <- income + tm_shape(broward_geo1) + tm_borders(lwd = 0.5, col = "black")
 income
 
-hazzard <- tm_shape(broward_hazzard1) + tm_polygons("risk",
+hazard <- tm_shape(broward_hazard1) + tm_polygons("risk",
                                                    style = "cont",
                                                    breaks = c(0, 1, 2, 3, 4, 5),
                                                    border.alpha = 0,
                                                    title = "Flood Hazard Zones",
                                                    palette = "PuRd")
-hazzard <- hazzard + tm_shape(broward_geo1) + tm_borders(lwd = 0.5, col = "black")
-hazzard
+hazard <- hazard + tm_shape(broward_geo1) + tm_borders(lwd = 0.5, col = "black")
+hazard
 
-panel <- tmap_arrange(income, hazzard, ncol = 2)
+panel <- tmap_arrange(income, hazard, ncol = 2)
 panel
 
 # change working directory here to save to github
 tmap_save(income, "output/maps/broward_median_income.png")
-tmap_save(hazzard, "output/maps/broward_ranked_fld_hzd.png")
+tmap_save(hazard, "output/maps/broward_ranked_fld_hzd.png")
 tmap_save(panel, "output/maps/broward_panel_income_fldhzd.png")
 ggsave(plot = highrisk_ethnic_composition, filename = "output/charts/highrisk_ethnic_composition.png")
 
