@@ -1,6 +1,6 @@
 ---
 title: "Project Report"
-author: "Samantha J. Poteet and Tavio Pela"
+author: "Samantha J. Poteet and Tavio A. Pela"
 date: "2022-11-11"
 output: html_document
 ---
@@ -115,6 +115,12 @@ knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/Dat
 
 This map shows median household income by tract, acquired from 2020 census data, with the the lighter-shaded tracts representing lower income and the darker-shaded tracts representing wealthier tracts. There are 159 tracts with median household income below 52,000 (upper limit for lower-middle class). There is 87 tracts with income above 87,000 (lower limit for upper middle class). At a glance, it is hard to see a clear, consistent relationship between wealth and flood risk.  The wealthiest tract is in a moderately at-risk location, as are several tracts on the higher end of the income distribution in the southwestern edge of the urban part of the county. The high-risk coastal tracts have neither the highest nor lowest median incomes in the county. Most of the lower income tracts are roughly in the center of Broward's urban region.
 
+#### High Flood Risk versus Income
+
+{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_income.png" HERE]]]]*}}}}
+
+This scatter plot shows the relationship between a tract's median household income and the percentage of that tract covered by a high-risk flood area. A line of best fit indicates there might be a positive relationship, but this should be taken with a grain of salt. The tracts with the highest proportion of high-risk area tend to fall more in the middle-class median income tracts, with the richest tracts and the poorest tracts having a relatively low proportion of high-risk area.
+
 ### Largest Racial group in tract by population
 
 ```{r, echo=FALSE}
@@ -125,13 +131,23 @@ knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/Dat
 
 This figure displays the tracts by largest racial groups using data from the 2020 census. Notably, the coast is heavily white-dominated, while black-majority tracts are clustered most densely in the center of Broward's urban area.
 
-### Main Findings: Bar Chart of Demographic Disparities in Flood Risk
+### Main Findings: Demographic Disparities in Flood Risk
 
 ```{r, echo=FALSE}
 knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/charts/bargraph_panel.png")
 ```
 
 This figure shows the demographic composition of Broward county as a whole in 2020 compared to our estimates for the demographics of the county at highest risk of experiencing flooding.  We can see that white people are estimated to be at disproportionately high risk, while black people are estimated to be at disproportionately low risk.  This is likely due in large part to the fact that many white people live on the coast, which has the greatest concentration of high-risk flood zones, whereas many black people live in the low-risk center of Broward's urban region.
+
+Scatter plots showing the relationship between the percentage of a tract's total population that is white/black and the percentage of that tract covered by a high-risk flood area corroborate these findings. We can see that a higher percentage white population is associated on average with a higher proportion of high-risk area, whereas a higher percentage black population is associated on average with a lower proportion of high-risk area.
+
+{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_pctWhit.png" HERE]]]]*}}}}
+
+{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_pctBlck.png" HERE]]]]*}}}}
+
+For comparison, we can look to the Hispanic group, which the bar graph does not show to be at disproportionately higher or lower risk. The scatter plot below shows no significant relationship between the percentage of a tract's total population that is hispanic and the percentage of that tract covered by a high-risk flood area.
+
+{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_pctHisp.png" HERE]]]]*}}}}
 
 ### Limitations
 

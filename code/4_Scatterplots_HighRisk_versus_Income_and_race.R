@@ -20,14 +20,15 @@ broward_master_tidy$highRsk = ifelse(broward_master_tidy$FLD_ZON == "VE", 1, ife
 broward_highrisk = broward_master_tidy |>
   filter(highRsk==1)
 
-# Find percent area in tracts that is high risk and percent white/Black pop
+# Find percent area in tracts that is high risk and percent white/black/hispanic pop
 tract_risk_distribution1 = broward_highrisk |>
   mutate(pctRisk = fldArea/trtArea * 100,
          pctWhit = nnhsp_w/totPop * 100,
-         pctBlck = nnhsp_b/totPop * 100) |>
+         pctBlck = nnhsp_b/totPop * 100,
+         pctHisp = hsp_ttl/totPop * 100) |>
   group_by(TRACTA) |>
   mutate(pctHRsk = sum(pctRisk)) |>
-  select(TRACTA, mdn_hs_, pctHRsk, pctWhit, pctBlck)
+  select(TRACTA, mdn_hs_, pctHRsk, pctWhit, pctBlck, pctHisp)
 
 # Eliminate duplicates
 tract_risk_distribution2 = distinct(tract_risk_distribution1)
@@ -37,12 +38,13 @@ tract_risk_distribution2 = distinct(tract_risk_distribution1)
 broward_nohighrisk = broward_master_tidy |>
   filter(highRsk==0)
 
-# Note that there is zero percent high risk and percent white/black pop
+# Note that there is zero percent high risk and percent white/black/hispanic pop
 tract_norisk_distribution1 = broward_nohighrisk |>
   mutate(pctHRsk = 0,
          pctWhit = nnhsp_w/totPop * 100,
-         pctBlck = nnhsp_b/totPop * 100) |>
-  select(TRACTA, mdn_hs_, pctHRsk, pctWhit, pctBlck)
+         pctBlck = nnhsp_b/totPop * 100,
+         pctHisp = hsp_ttl/totPop * 100) |>
+  select(TRACTA, mdn_hs_, pctHRsk, pctWhit, pctBlck, pctHisp)
 
 # Eliminate duplicates
 tract_norisk_distribution2 = distinct(tract_norisk_distribution1)
@@ -68,25 +70,33 @@ pctHRsk_by_X_data_post = pctHRsk_by_X_data_pre |>
 pctHRsk_by_income_plot = ggplot(data = pctHRsk_by_X_data_post, aes(x = mdn_hs_, y = pctHRsk)) +
   geom_point() +
   geom_smooth(method=lm) +
-  labs(title="Flood Risk versus Income by Tract (Broward County, FL, 2020)",
+  labs(title="High Flood Risk versus Income by Tract (Broward County, FL, 2020)",
        x="Median Household Income ($2020)", y = "Percent of Tract Area at High Flood Risk") + 
   theme_light()
-
 
 pctHRsk_by_pctWhit_plot = ggplot(data = pctHRsk_by_X_data_post, aes(x = pctWhit, y = pctHRsk)) +
   geom_point() +
   geom_smooth(method=lm) +
-  labs(title="Flood Risk versus Percent White by Tract (Broward County, FL, 2020)",
+  labs(title="High Flood Risk versus Percent White by Tract (Broward County, FL, 2020)",
        x="Percent of Tract Population that is White", y = "Percent of Tract Area at High Flood Risk") + 
-  theme_light()
+  theme_light() +
+  coord_cartesian(xlim = c(0, 100), ylim = c(0, 100))
 
 pctHRsk_by_pctBlck_plot = ggplot(data = pctHRsk_by_X_data_post, aes(x = pctBlck, y = pctHRsk)) +
   geom_point() +
   geom_smooth(method=lm) +
-  labs(title="Flood Risk versus Percent Black by Tract (Broward County, FL, 2020)",
+  labs(title="High Flood Risk versus Percent Black by Tract (Broward County, FL, 2020)",
        x="Percent of Tract Population that is Black", y = "Percent of Tract Area at High Flood Risk") + 
-  theme_light()
+  theme_light() +
+  coord_cartesian(xlim = c(0, 100), ylim = c(0, 100))
 
+pctHRsk_by_pctHisp_plot = ggplot(data = pctHRsk_by_X_data_post, aes(x = pctHisp, y = pctHRsk)) +
+  geom_point() +
+  geom_smooth(method=lm) +
+  labs(title="High Flood Risk versus Percent Hispanic by Tract (Broward County, FL, 2020)",
+       x="Percent of Tract Population that is Hispanic", y = "Percent of Tract Area at High Flood Risk") + 
+  theme_light() +
+  coord_cartesian(xlim = c(0, 100), ylim = c(0, 100))
 
 # Save Output ---------------------------------------------------------------------------
 
@@ -96,6 +106,7 @@ ggsave(plot = pctHRsk_by_pctWhit_plot, filename = "output/charts/pctHRsk_by_pctW
 
 ggsave(plot = pctHRsk_by_pctBlck_plot, filename = "output/charts/pctHRsk_by_pctBlck.png")
 
+ggsave(plot = pctHRsk_by_pctHisp_plot, filename = "output/charts/pctHRsk_by_pctHisp.png")
 
 
 
