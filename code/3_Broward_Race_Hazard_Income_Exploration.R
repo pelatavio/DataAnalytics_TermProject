@@ -21,6 +21,9 @@ tracts = tracts(cb = TRUE)
 broward_tracts = tracts |>
   filter(NAMELSADCO=="Broward County")
 
+broward_tracts1 <- broward_tracts %>%
+  filter(TRACTA != "980000")
+
 names(broward_tracts)[names(broward_tracts)=="TRACTCE"] = "TRACTA"
 
 
@@ -283,22 +286,17 @@ jbt_demographics2_black = jbt_demographics2 |>
 jbt_demographics2_hispanic = jbt_demographics2 |>
   filter(largest_grp=="hispanic") |>
   mutate(percent_hispanic = (hisp_total/totPop)*100) 
-  #st_bbox(c(xmin = 16.1, xmax = 16.6, ymax = 48.6, ymin = 47.9), crs = st_crs(4269))
 
 jbt_demographics2_white = jbt_demographics2 |>
   filter(largest_grp=="white") |>
   mutate(percent_white = (nonhisp_white/totPop)*100)
-  #st_bbox(c(xmin = 16.1, xmax = 16.6, ymax = 48.6, ymin = 47.9), crs = st_crs(4269))
+
 
 # Map
 
-# find bounding box values
-#jbt_demographics2 <- jbt_demographics2 %>%
- # mutate(minx = min(xcoords),
-         #maxx = max(xcoords),
-         #miny = min(ycoords),
-         #maxy = max(ycoords))
-
+#jbt_demographics2_black <- st_crop(jbt_demographics2_black, st_bbox(broward_tracts1))
+#jbt_demographics2_white <- st_crop(jbt_demographics2_white, st_bbox(broward_tracts1))
+#jbt_demographics2_hispanic <- st_crop(jbt_demographics2_hispanic, st_bbox(broward_tracts1))
 
 broward_ethnic_map = tm_shape(jbt_demographics2_black) + tm_polygons("percent_black", 
                                                                      style = "cont",
@@ -316,7 +314,7 @@ broward_ethnic_map = tm_shape(jbt_demographics2_black) + tm_polygons("percent_bl
             main.title.position = "center",
             legend.bg.color = "white",
             legend.frame = "black")
-
+broward_ethnic_map
 
 # Save Output ---------------------------------------------------------------------------------------
 
