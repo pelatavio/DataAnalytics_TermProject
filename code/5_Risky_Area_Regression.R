@@ -106,3 +106,21 @@ table <- modelsummary(
 
 table
 
+##### TAV REGRESSION ######
+
+# Finalize regression data and regress
+
+regression_data = pctHRsk_by_X_data_post |>
+  mutate(ln_median_household_income = log(mdn_hs_))
+
+regression1 = lm_robust(pctHRsk ~ pctWhit + ln_median_household_income, data = regression_data)
+
+regression2 = lm_robust(pctHRsk ~ pctBlck + ln_median_household_income, data = regression_data)
+
+regression3 = lm_robust(pctHRsk ~ pctHisp + ln_median_household_income, data = regression_data)
+
+regression4 = lm_robust(pctHRsk ~ pctAsia + ln_median_household_income, data = regression_data)
+
+# Prepare regressions for LaTeX
+
+texreg(list(regression1, regression2, regression3, regression4), stars=c(0.01, 0.05, 0.1), caption = "Percentage of Tract Area at High Flood Risk")
