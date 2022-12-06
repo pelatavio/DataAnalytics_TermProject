@@ -1,7 +1,7 @@
 # Set Working Directory to project OneDrive
 # E.g., setwd("C:/Users/pelat/OneDrive - Montana State University/Data Analytics Project")
 
-pacman::p_load(tidyverse, tigris, sf, tmap, estimatr, broom, summarytools, fixest, binsreg, modelsummary)
+pacman::p_load(tidyverse, tigris, sf, tmap, estimatr, broom, summarytools, fixest, binsreg, modelsummary, texreg)
 
 
 broward_master_tidy = st_read("data/clean/broward_master_tidy.shp")
@@ -78,33 +78,19 @@ pctHRsk_by_X_data_post = pctHRsk_by_X_data_pre |>
   filter(ID == min(ID))
 
 
-# Regress
-
-lm_robust(pctHRsk ~ pctWhit + pctBlck + pctHisp + pctAsia + mdn_hs_, data = pctHRsk_by_X_data_post)
-
+##### SAM REGRESSION #####
 
 # LPM using pctHRsk_by_X_data_pre
-lpm5 = lm_robust(hhigh ~ pctWhit + pctBlck + pctHisp + pctAsia + mdn_hs_, data = pctHRsk_by_X_data_post)
 lpm1 = lm_robust(hhigh ~ pctWhit + mdn_hs_, data = pctHRsk_by_X_data_post)
+
 lpm2 = lm_robust(hhigh ~ pctBlck + mdn_hs_, data = pctHRsk_by_X_data_post)
+
 lpm3 = lm_robust(hhigh ~ pctHisp + mdn_hs_, data = pctHRsk_by_X_data_post)
+
 lpm4 = lm_robust(hhigh ~ pctAsia + mdn_hs_, data = pctHRsk_by_X_data_post)
-lpm5 = lm_robust(hhigh ~ pctWhit + pctBlck + pctHisp + pctAsia + mdn_hs_, data = pctHRsk_by_X_data_post)
 
-table <- modelsummary(
-  list(
-    "Model 1" = lpm1,
-    "Model 2" = lpm2,
-    "Model 3" = lpm3,
-    "Model 4" = lpm4, 
-    "Model 5" = lpm5
-  ), 
-  fmt = 2,
-  escape = TRUE,
-  output = "output/regressions/lmp.tex"
-) 
-
-table
+# Prepare regressions for LaTeX
+texreg(list(lpm1, lpm2, lpm3, lpm4), stars=c(0.01, 0.05, 0.1), caption = "Linear Probaility Model")
 
 ##### TAV REGRESSION ######
 
