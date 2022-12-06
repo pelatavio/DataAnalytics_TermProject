@@ -21,6 +21,10 @@ Risk and effects of flooding in the US
 
 Risk of flooding puts communities in danger of numerous short- and long-term consequences. Entire communities can be uprooted as their homes are destroyed. Flooding can cause fatalities, property damage, and disease by carrying sewage and toxic runoff, polluting drinking water supplies, and leaving bacteria and mold that contribute to respiratory illnesses in their wake. Flood risks are expected to continue to increase as global climate change contributes to heavier precipitation, more frequent hurricanes, and higher sea levels.
 
+### Research Question and Motivation
+
+To what extent is there disproportionate exposure to flood risk based on race and income? This is a descriptive question rather than a causal or predictive question. It is important to have a framework for identifying which populations are at greatest risk of flooding as a first step to considering where to target efforts to mitigate the impacts of flooding. Observing disparities in risk is also a first step to identifying potential inequities in how we address flood risk that should be rectified.
+
 ### Description of Datasets
 
 
@@ -158,3 +162,27 @@ First, are missing income and demographic data for two tracts in our county of f
 Second, we must make a large simplifying assumption when calculating estimates for high-risk demographics in Broward, namely that *within tracts*, the population is perfectly evenly dispersed, and there are no racial inequities. It may be the case, then, that due to differences in individual access to flood insurance or protective architecture, different degrees of crowded housing or intergenerational homes in different areas within-tracts, the amount in which disproportionate risk is experienced differs from our findings. Furthermore, exposure to risk is not a perfect proxy for looking at the actual damages suffered from flooding because there may be different degrees of adaptation depending on knowledge of risk and resource availability.
 
 Finally, we should stress that we are not attaching normative or causal significance to our findings. We have not indicated whether the disparities in risk-exposure are a result of personal choice, historical happenstance, discrimination, etc. These findings and subsequent applications of our current methodology should be seen as a first step to examining county and tract-level effects of flooding.  Further work to help build on their significance would be to combine our demographic data with flood insurance data, or use our median household income data to estimate flood insurance access and use it to estimate disparities in the impacts of flooding rather than simply risk exposure.
+
+## Econometric Analysis
+
+### Motivation
+
+We use descriptive regression analysis to help us quantify some of the relationships we found in our exploratory analysis. The precise values of our coefficients should be taken with a grain of salt, however, as there are few variables we were able to control for using our datasets. We also want to reiterate that our results to not have a causal interpretation; these regressions area another means to corroborate the findings from our maps/graphs.
+
+### Methods
+
+In our first model, we look for relationships between a tract's ethnic demographic characteristics and the percent of the tract's area that falls within a high risk flood zone while controlling for median household income. Since there is partial multicollinearity between each of the variables for the percentage of tract population falling into a certain racial demographic, including all these variables at once would greatly inflate our standard errors, so we run each one separately first.  Our results are shown in Table 1 below.
+
+{{{{*[[[[INSERT THE IMAGE "Table 1" HERE]]]]*}}}}
+
+The coefficients of the "percent [Ethnicity]" variables indicate the average percentage point difference in the high-risk area of a given tract for a one percentage point increase in the amount of the tract's total population that ethnicity makes up while holding median household income constant.  E.g., in Model 1 the 0.36 coefficient for percent White means that on average a tract with a one percentage point higher share of its total population being white had 0.36 percentage points more of its area at high flood risk when median household income was controlled for.  The coefficient of the ln(Median Household Income) variable indicates the average percentage point difference in the high-risk area of a given tract for a 1% increase in median household income.
+
+{{{{*[[[SECOND MODEL DISCUSSION HERE]]]*}}}}
+
+
+### Results
+
+From Models 1 and 2 of Table 1, we can see that the coefficient for percent White is positive and highly statistically significant, and the coefficient for percent Black is negative and highly statistically significant. On average, a tract with a one percentage point higher share of its total population being white had 0.36 percentage points more of its area at high flood risk when median household income was controlled for.  On average, a tract with a one percentage point higher share of its total population being black had 0.30 percentage points less of its area at high flood risk when median household income was controlled for. This aligns well with our previous findings; we observe disproportionately high flood risk for the white population of the county and disproportionately low risk for the black population.  In both cases, the coefficient of ln(Median Household Income) is negative, but statistically insignificant, aligning with our lack of finding a clear relationship between tract-level median household income and flood risk in Broward County. Interestingly, in Models 3 and 4 of Table 1, this same coefficient is positive and statistically significant, but looking at the incredibly low R-squared value and the lower significance of the demographic controls, we suspect this is not suggestive of a real-world relationship.
+
+{{{{*[[[SECOND MODEL DISCUSSION HERE]]]*}}}}
+
