@@ -103,7 +103,7 @@ All definitions at (https://floodpartners.com/fema-flood-map/)
 ### Hazard Flood Layer
 
 ```{r, echo= FALSE}
-knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_ranked_fld_hzd.png")
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_ranked_fld_hzd.png")
 
 ```
 
@@ -113,7 +113,7 @@ This map shows FEMA Flood Hazard Data layer with census tract borders for Browar
 ### Median Household income by tract
 
 ```{r, echo=FALSE}
-knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_median_income.png")
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_median_income.png")
 
 ```
 
@@ -121,7 +121,9 @@ This map shows median household income by tract, acquired from 2020 census data,
 
 #### High Flood Risk versus Income
 
-{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_income.png" HERE]]]]*}}}}
+```{r, echo=FALSE}
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_income.png")
+```
 
 This scatter plot shows the relationship between a tract's median household income and the percentage of that tract covered by a high-risk flood area. A line of best fit indicates there might be a positive relationship, but this should be taken with a grain of salt. The tracts with the highest proportion of high-risk area tend to fall more in the middle-class median income tracts, with the richest tracts and the poorest tracts having a relatively low proportion of high-risk area.
 
@@ -129,7 +131,7 @@ This scatter plot shows the relationship between a tract's median household inco
 
 ```{r, echo=FALSE}
 
-knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/maps/broward_ethnic_map.png")
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_ethnic_map.png")
 
 ```
 
@@ -138,20 +140,26 @@ This figure displays the tracts by largest racial groups using data from the 202
 ### Main Findings: Demographic Disparities in Flood Risk
 
 ```{r, echo=FALSE}
-knitr::include_graphics("/Users/samipoteet/Documents/GitHub/course-materials/DataAnalytics_TermProject/output/charts/bargraph_panel.png")
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/bargraph_panel.png")
 ```
 
 This figure shows the demographic composition of Broward county as a whole in 2020 compared to our estimates for the demographics of the county at highest risk of experiencing flooding.  We can see that white people are estimated to be at disproportionately high risk, while black people are estimated to be at disproportionately low risk.  This is likely due in large part to the fact that many white people live on the coast, which has the greatest concentration of high-risk flood zones, whereas many black people live in the low-risk center of Broward's urban region.
 
 Scatter plots showing the relationship between the percentage of a tract's total population that is white/black and the percentage of that tract covered by a high-risk flood area corroborate these findings. We can see that a higher percentage white population is associated on average with a higher proportion of high-risk area, whereas a higher percentage black population is associated on average with a lower proportion of high-risk area.
 
-{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_pctWhit.png" HERE]]]]*}}}}
+```{r, echo=FALSE}
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_pctWhit.png")
+```
 
-{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_pctBlck.png" HERE]]]]*}}}}
+```{r, echo=FALSE}
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_pctBlck.png")
+```
 
 For comparison, we can look to the Hispanic group, which the bar graph does not show to be at disproportionately higher or lower risk. The scatter plot below shows no significant relationship between the percentage of a tract's total population that is hispanic and the percentage of that tract covered by a high-risk flood area.
 
-{{{{*[[[[INSERT THE IMAGE "pctHRsk_by_pctHisp.png" HERE]]]]*}}}}
+```{r, echo=FALSE}
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_pctHisp.png")
+```
 
 ### Limitations
 
@@ -173,16 +181,24 @@ We use descriptive regression analysis to help us quantify some of the relations
 
 In our first model, we look for relationships between a tract's ethnic demographic characteristics and the percent of the tract's area that falls within a high risk flood zone while controlling for median household income. Since there is partial multicollinearity between each of the variables for the percentage of tract population falling into a certain racial demographic, including all these variables at once would greatly inflate our standard errors, so we run each one separately first.  Our results are shown in Table 1 below.
 
-{{{{*[[[[INSERT THE IMAGE "Table 1" HERE]]]]*}}}}
+```{r, echo=FALSE}
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table1.png")
+```
+
 
 The coefficients of the "percent [Ethnicity]" variables indicate the average percentage point difference in the high-risk area of a given tract for a one percentage point increase in the amount of the tract's total population that ethnicity makes up while holding median household income constant.  E.g., in Model 1 the 0.36 coefficient for percent White means that on average a tract with a one percentage point higher share of its total population being white had 0.36 percentage points more of its area at high flood risk when median household income was controlled for.  The coefficient of the ln(Median Household Income) variable indicates the average percentage point difference in the high-risk area of a given tract for a 1% increase in median household income.
 
-{{{{*[[[SECOND MODEL DISCUSSION HERE]]]*}}}}
 
+The our second model, we use a linear probability model to see if tract median household income and ethnicity predict weather or not a tract will have more than 13% of its area covered by high risk flood zones. We choose 13% because of the tracts that have high risk flood zone this is the median point. We also run this model with with a different outcome variable. Where 23% of the tract area covered by high risk zones will turn on the binary variable. By changing the outcome variable we do not find different results. As in the first model we do not use all ethnicities in a regression to avoid colinearity issues. Our results for the linear probability model are shown in Table 2
+
+```{r, echo=FALSE}
+knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table2.png")
+```
 
 ### Results
 
 From Models 1 and 2 of Table 1, we can see that the coefficient for percent White is positive and highly statistically significant, and the coefficient for percent Black is negative and highly statistically significant. On average, a tract with a one percentage point higher share of its total population being white had 0.36 percentage points more of its area at high flood risk when median household income was controlled for.  On average, a tract with a one percentage point higher share of its total population being black had 0.30 percentage points less of its area at high flood risk when median household income was controlled for. This aligns well with our previous findings; we observe disproportionately high flood risk for the white population of the county and disproportionately low risk for the black population.  In both cases, the coefficient of ln(Median Household Income) is negative, but statistically insignificant, aligning with our lack of finding a clear relationship between tract-level median household income and flood risk in Broward County. Interestingly, in Models 3 and 4 of Table 1, this same coefficient is positive and statistically significant, but looking at the incredibly low R-squared value and the lower significance of the demographic controls, we suspect this is not suggestive of a real-world relationship.
 
-{{{{*[[[SECOND MODEL DISCUSSION HERE]]]*}}}}
+In the linear probability model, for each regression we find that all else equal, a 1% increase in median household income is associated on average with a 0 percentage point change in the probability of being in one the tracts with more than 13% of the area covered by high risk zones.In the first regression we find that all else equal, a 1% increase in the white population of a tract is associated on average with a 1 percentage point increase in the probability of being in a tract with more than 13% high risk flood zones. Similarly in the second regression, we find that all else equal, a 1% increase in the black population of a tract is associated on average with a 1 percentage point decrease in the probability of being in a tract with more than 13% high risk flood zones.
+These results are consistent with our first OLS model and the bar charts uses to display the disproportionate impacts of flood risk.
 

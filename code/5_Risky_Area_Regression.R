@@ -37,7 +37,8 @@ tract_risk_distribution2 <- tract_risk_distribution1 %>%
 
 
 tract_risk_distribution3 <- tract_risk_distribution2 %>%
-  mutate(hhigh = ifelse(cvdArea1 >= "0.1238471", 1, 0))
+  mutate(hhigh = ifelse(cvdArea1 >= "0.1238471", 1, 0),
+         hhhigh = ifelse(cvdArea1 >= "0.2397875", 1, 0))
 
 
 # Eliminate duplicates
@@ -56,8 +57,9 @@ tract_norisk_distribution1 = broward_nohighrisk |>
          pctHisp = hsp_ttl/totPop * 100,
          pctNatv = nnhsp_n/totPop * 100,
          pctAsia = nnhsp_sn/totPop * 100,
-         hhigh = 0) |>
-  select(TRACTA, mdn_hs_, pctHRsk, pctWhit, pctBlck, pctHisp, pctNatv, pctAsia, hhigh, cvdArea)
+         hhigh = 0,
+         hhhigh = 0) |>
+  select(TRACTA, mdn_hs_, pctHRsk, pctWhit, pctBlck, pctHisp, pctNatv, pctAsia, hhigh, hhhigh, cvdArea)
 
 # Eliminate duplicates
 tract_norisk_distribution2 = distinct(tract_norisk_distribution1)
@@ -91,6 +93,19 @@ lpm4 = lm_robust(hhigh ~ pctAsia + mdn_hs_, data = pctHRsk_by_X_data_post)
 
 # Prepare regressions for LaTeX
 texreg(list(lpm1, lpm2, lpm3, lpm4), stars=c(0.01, 0.05, 0.1), caption = "Linear Probaility Model")
+
+# LPM different hhhigh
+hlpm1 = lm_robust(hhhigh ~ pctWhit + mdn_hs_, data = pctHRsk_by_X_data_post)
+
+hlpm2 = lm_robust(hhhigh ~ pctBlck + mdn_hs_, data = pctHRsk_by_X_data_post)
+
+hlpm3 = lm_robust(hhhigh ~ pctHisp + mdn_hs_, data = pctHRsk_by_X_data_post)
+
+hlpm4 = lm_robust(hhhigh ~ pctAsia + mdn_hs_, data = pctHRsk_by_X_data_post)
+
+# Prepare regressions for LaTeX
+texreg(list(hlpm1, hlpm2, hlpm3, hlpm4), stars=c(0.01, 0.05, 0.1), caption = "Linear Probaility Model")
+
 
 ##### TAV REGRESSION ######
 
