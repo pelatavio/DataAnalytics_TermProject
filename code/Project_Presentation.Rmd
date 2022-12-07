@@ -1,0 +1,103 @@
+---
+title: "Floods and Demographics"
+author: "Samantha Poteet and Tavio Pela"
+date: "12/7/2022"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'css/my-css.css']
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+---
+exclude: true
+
+```{r, setup, include = F}
+library(knitr)
+# Define colors
+red_pink   = "#e64173"
+turquoise  = "#20B2AA"
+orange     = "#FFA500"
+red        = "#fb6107"
+blue       = "#3b3b9a"
+green      = "#8bb174"
+grey_light = "grey70"
+grey_mid   = "grey50"
+grey_dark  = "grey20"
+purple     = "#6A5ACD"
+slate      = "#314f4f"
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  cache = F,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(knitr.table.format = "html")
+```
+
+---
+
+# Research Question and Motivation
+
+**Consequences of Flooding:**
+* Fatalities
+* Property damage
+* Contaminate water supplies
+
+**Environmental Justice and Disproportionate Risk:**
+* It is important to understand who is most vulnerable to flooding to determine were aid and infrastructure is needed
+
+---
+class: inverse, middle
+name: data
+
+# Data
+
+---
+
+# Demographics Census Data
+
+---
+
+# Race and Income Data Processing
+
+---
+
+# FEMA's Nation Flood Hazard Layer (NFHL)
+
+---
+
+# NFHL Data processing
+
+---
+class: inverse, middle
+name: analysis
+
+# Exploratory Analysis
+
+---
+
+# Median Household income by tract
+
+---
+
+# Ranked Flood Risk
+
+---
+
+# Racial/Ethnic tract level Population
+
+---
+
+# Demographic Disparities in Flood Risk
+
