@@ -89,15 +89,27 @@ name: analysis
 
 # Median Household income by tract
 
+```{r, echo=FALSE}
+knitr::include_graphics("")
+```
+
 ---
 
 # Ranked Flood Risk
 
+```{r, echo=FALSE}
+knitr::include_graphics("")
+```
 ---
 
 # Racial/Ethnic tract level Population
 
+```{r, echo=FALSE}
+knitr::include_graphics("")
+```
 ---
 
 # Demographic Disparities in Flood Risk
-
+```{r, echo=FALSE}
+knitr::include_graphics("")
+```
