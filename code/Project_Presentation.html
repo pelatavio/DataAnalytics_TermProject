@@ -4,7 +4,7 @@
     <title>Floods and Demographics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Samantha Poteet and Tavio Pela" />
-    <script src="Project_Presentation_files/header-attrs-2.11/header-attrs.js"></script>
+    <script src="Project_Presentation_files/header-attrs-2.17/header-attrs.js"></script>
     <link href="Project_Presentation_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="Project_Presentation_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <link href="Project_Presentation_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
@@ -32,15 +32,17 @@ exclude: true
 
 ---
 
-# Research Question and Motivation
+# Research Question and Motivation 
 
-**Consequences of Flooding:**
-* Fatalities
-* Property damage
-* Contaminate water supplies
+To what extent is there disproportionate exposure to flood risk based on race and income?
 
-**Environmental Justice and Disproportionate Risk:**
-* It is important to understand who is most vulnerable to flooding to determine were aid and infrastructure is needed
+* It is important to understand who is most vulnerable to flooding to determine where aid and infrastructure is needed
+* First step to identifying potential inequities in how we address flood risk
+
+* Consequences of Flooding:
+  + Fatalities
+  + Property damage
+  + Contaminate water supplies
 
 ---
 class: inverse, middle
@@ -50,42 +52,131 @@ name: data
 
 ---
 
-# Demographics Census Data
+# Data
+
+* Demographics and Income Census Data
+
+  + information about what? what is in the data?
+  + from?
+  + unit of analyisis
+  + time period
+
+
+* FEMA's Nation Flood Hazard Layer (NFHL)
+
+  + information about what? what is in the data?
+  + from?
+  + unit of analyisis
+  + time period
+
+
+---
+class: inverse, middle
+name: data
+
+# Processing
+
+
+---
+# Defining Scope
+
+Broward County, Florida
+
+
 
 ---
 
 # Race and Income Data Processing
 
----
-
-# FEMA's Nation Flood Hazard Layer (NFHL)
 
 ---
 
-# NFHL Data processing
+# NFHL Data Processing
+
+* intersection
+* recoding choices
 
 ---
 class: inverse, middle
 name: analysis
 
-# Exploratory Analysis
-
----
-
-# Median Household income by tract
+# Findings
 
 ---
 
 # Ranked Flood Risk
 
----
-
-# Racial/Ethnic tract level Population
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_ranked_fld_hzd.png" width="2579" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Demographic Disparities in Flood Risk
+# Median Household income by tract
 
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_median_income.png" width="2572" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Panel
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_panel_income_fldhzd.png" width="2800" style="display: block; margin: auto;" /&gt;
+
+---
+
+# High Flood Risk Verse Income Scatter
+
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_income.png" width="3928" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Racial/Ethnic tract level Population T
+
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_ethnic_map.png" width="3817" style="display: block; margin: auto;" /&gt;
+---
+
+# Demographic Disparities in Flood Risk Bar
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/bargraph_panel.png" width="3195" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_pctWhit.png" width="3928" style="display: block; margin: auto;" /&gt;
+
+
+---
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_pctBlck.png" width="3928" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/pctHRsk_by_pctHisp.png" width="3928" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, middle
+name: analysis
+
+# Econometric Models
+
+---
+
+# Motivation
+
+---
+
+# OLS 
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table1.png" width="1355" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Linear Probability Model
+&lt;img src="../../../../../Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table2.png" width="1253" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Limitation
+
+---
+
+# The End
+
+Thank you
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
