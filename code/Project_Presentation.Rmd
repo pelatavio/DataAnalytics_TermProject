@@ -79,10 +79,10 @@ name: data
 
 * FEMA's Nation Flood Hazard Layer (NFHL)
 
-  + information about what? what is in the data?
-  + from?
-  + unit of analyisis
-  + time period
+  + This Database includes 32 layers with information on flood insurance rates, control structures, and hazard zones.
+  + The data set is provided by the Federal Emergency Management Agency (FEMA)
+  + This data is at a refined level with no specific unit. (Smaller than the block level)
+  + We use the most up to date version of the data
 
 
 ---
@@ -110,8 +110,11 @@ Broward County, Florida
 
 # NFHL Data Processing
 
-* intersection
-* recoding choices
+* intersection to aggregate up to the tract level
+
+* re-coding choices
+  + There 6 different flood hazard zone designations within Broward County
+  + We assigned numerical values from 0 to 5 with 5 being the highest risk zone
 
 ---
 class: inverse, middle
