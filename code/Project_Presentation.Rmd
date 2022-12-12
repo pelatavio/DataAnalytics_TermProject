@@ -126,7 +126,7 @@ name: analysis
 
 # Ranked Flood Risk
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width='60%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_ranked_fld_hzd.png")
 ```
 
@@ -134,14 +134,14 @@ knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - D
 
 # Median Household income by tract
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width='60%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_median_income.png")
 ```
 
 ---
 
 # Panel
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width='60%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_panel_income_fldhzd.png")
 ```
 
@@ -163,7 +163,7 @@ knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - D
 ---
 
 # Demographic Disparities in Flood Risk Bar
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width='90%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/charts/bargraph_panel.png")
 ```
 
@@ -205,14 +205,14 @@ name: analysis
 ---
 
 # OLS 
-```{r, echo=FALSE}
+```{r, echo=FALSE, , out.width='90%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table1.png")
 ```
 
 ---
 
 # Linear Probability Model
-```{r, echo=FALSE}
+```{r, echo=FALSE, , out.width='90%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table2.png")
 ```
 
