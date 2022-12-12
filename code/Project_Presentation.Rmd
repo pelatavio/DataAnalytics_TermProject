@@ -1,5 +1,5 @@
 ---
-title: "Floods and Demographics"
+title: "Disparities in Flood Risk Exposure: A Case Study"
 author: "Samantha Poteet and Tavio Pela"
 date: "12/7/2022"
 output:
@@ -71,18 +71,17 @@ name: data
 
 * Demographics and Income Census Data
 
-  + information about what? what is in the data?
-  + from?
-  + unit of analyisis
-  + time period
+  + From IPUMS National Historical Geographic Information System
+  + Tract-level data on median household income in 2020 inflation-adjusted dollars and total population broken down by ethnicity/race
+
 
 
 * FEMA's Nation Flood Hazard Layer (NFHL)
 
-  + This Database includes 32 layers with information on flood insurance rates, control structures, and hazard zones.
-  + The data set is provided by the Federal Emergency Management Agency (FEMA)
-  + This data is at a refined level with no specific unit. (Smaller than the block level)
-  + We use the most up to date version of the data
+  + From Federal Emergency Management Agency (FEMA)
+  + Includes 32 layers with information on flood insurance rates, control structures, and hazard zones.
+  + At a refined level with no specific unit. (Smaller than the block level)
+  + Updated in 2020
 
 
 ---
@@ -96,24 +95,45 @@ name: data
 # Defining Scope
 
 Broward County, Florida
-```{r, echo=FALSE}
-#knitr::include_graphics("")
+```{r, echo=FALSE, results='hide'}
+pacman::p_load(sf, tigris, tidyverse, dplyr, tmap)
+
+florida <- states(cb = TRUE) %>%
+  filter(STUSPS == "FL")
+
+county <- counties(cb = TRUE) %>%
+  filter(STUSPS == "FL")
+
+broward <- county %>%
+  mutate(Broward = ifelse(NAMELSAD == "Broward County", 1, 0))
+
+tm_shape(broward) + tm_polygons("Broward",
+                                style = "cont",
+                                palette = "Oranges",
+                                legend.show = FALSE)
+
 ```
 
 
 ---
+# Data Processing
 
-# Race and Income Data Processing
+**Race and Income Data Processing**
 
+* Aggregate data into 5 demographic groups
+  + White
+  + Hispanic
+  + Black
+  + Asian
+  + Other
 
----
+**NFHL Data Processing**
 
-# NFHL Data Processing
+* Intersection to aggregate up to the tract level
 
-* intersection to aggregate up to the tract level
-
-* re-coding choices
+* Re-coding choices
   + There 6 different flood hazard zone designations within Broward County
+  
   + We assigned numerical values from 0 to 5 with 5 being the highest risk zone
 
 ---
@@ -155,7 +175,7 @@ knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - D
 
 ---
 
-# Racial/Ethnic tract level Population T
+# Racial/Ethnic tract level Population 
 
 ```{r, echo=FALSE}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/maps/broward_ethnic_map.png")
@@ -200,10 +220,6 @@ name: analysis
 
 ---
 
-# Motivation
-
----
-
 # OLS 
 ```{r, echo=FALSE, , out.width='90%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table1.png")
@@ -212,16 +228,29 @@ knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - D
 ---
 
 # Linear Probability Model
-```{r, echo=FALSE, , out.width='90%'}
+```{r, echo=FALSE, , out.width='85%'}
 knitr::include_graphics("/Users/m28t112/Montana State University/Pela, Tavio - Data Analytics Project (1)/output/regressions/Table2.png")
 ```
 
 ---
 
-# Limitation
+# Limitations
+
+* Missing data (though unlikely to have a large effect)
+
+* Simplifying assumptions
+
+  + We miss out on disproportionate risk exposure *within* tracts
+
+* Exposure to risk is not a perfect proxy for damages suffered or benefits to intervention
+
+* Analysis is descriptive---not causal or normative
+
+  + Can be built upon in the future
 
 ---
 
-# The End
+class: inverse, middle
+name: analysis
 
-Thank you
+# Thank You
